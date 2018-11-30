@@ -14,9 +14,9 @@ public class FileIODriver {
 	public static void main(String[] args) {
 
 		FileIO.stretch("Stretch.txt", "StretchOutput.txt");
-		FileIO.sortNumbers("Numbers.txt", "NumbersOutput.txt");
-		FileIO.wordCount("WordCount.txt","WordCountOutput.txt");
-		FileIO.mergeFileContents("merge1.txt", "merge2.txt", "mergeOutput.txt");
+//		FileIO.sortNumbers("Numbers.txt", "NumbersOutput.txt");
+//		FileIO.wordCount("WordCount.txt","WordCountOutput.txt");
+//		FileIO.mergeFileContents("merge1.txt", "merge2.txt", "mergeOutput.txt");
 		
 	}
 

@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -20,7 +21,33 @@ public class FileIO {
 	public static void stretch(String inFile, String outFile) {
 		System.out.println("stretch opening files " + inFile + ", " + outFile);
 		
-		//TODO
+		String line, stretchLine, stretchChar;
+		//char [] charArray = ;
+		List<Character> charArray = new ArrayList<> (Arrays.asList(' ','.',',', '!','?'));
+		
+		try(Scanner scr = new Scanner(new File(inFile)); PrintWriter pw = new PrintWriter(outFile)) {
+			while(scr.hasNextLine()) {
+				line = scr.nextLine();
+				stretchLine  = "";
+				for(int i = 0; i < line.length(); i++) {
+					if(!charArray.contains((Character)line.charAt(i))) {
+						stretchChar = "";
+						for(int s = 0; s <5; s++) {
+							stretchChar +=line.charAt(i);
+						}
+						stretchLine += stretchChar;
+					}
+					else if(charArray.contains((Character)line.charAt(i))){
+						stretchLine += line.charAt(i);
+					}
+					
+				}
+				pw.println(stretchLine);
+			}
+			
+		}catch(FileNotFoundException e) {
+			System.out.println("Error on file: " + outFile);
+		}
 		
 		System.out.println("stretch finished");
 	}
