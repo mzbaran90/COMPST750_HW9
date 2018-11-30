@@ -11,7 +11,6 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 public class FileIO {
@@ -200,9 +199,39 @@ public class FileIO {
 	public static void mergeFileContents(String inFile1, String inFile2, String outFile) {
 		System.out.println("merge opening file " + inFile1 + ", " + inFile2 + ", " + outFile);
 		
-		//TODO
+		try(Scanner scr = new Scanner(new File(inFile1)); Scanner scr2 = new Scanner(new File(inFile2)); 
+				PrintWriter pw = new PrintWriter(outFile)){
+			List<String> inFile1Contents = new ArrayList<>();
+			List<String> inFile2Contents = new ArrayList<>();
+			List<String> union = new ArrayList<>();
+			
+			while(scr.hasNextLine()) {
+				String line1 = scr.nextLine();
+				inFile1Contents.add(line1);
+			}
+			while(scr2.hasNextLine()) {
+				String line2 = scr2.nextLine();
+				inFile2Contents.add(line2);
+			}
+			union.addAll(inFile1Contents);
+			for(String tidbit: inFile2Contents) {
+				if(!union.contains(tidbit)) {
+					union.add(tidbit);
+				}
+			}
+			
+			for(String content: union) {
+				pw.println(content);
+				
+			}
+			
+			
+		}catch(FileNotFoundException e ) {
+			System.out.println("error on: " + outFile);
+		}
 		
 		System.out.println("merge finished");
+		
 	}
 	
 	/**
