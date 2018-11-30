@@ -1,12 +1,16 @@
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class FileIO {
 
@@ -67,7 +71,36 @@ public class FileIO {
 	public static void sortNumbers(String inFile, String outFile) {
 		System.out.println("sortNumbers opening files " + inFile + ", " + outFile);
 		
-		//TODO
+		List<Integer> numbers = new LinkedList<>();
+		
+		try(Scanner scr = new Scanner(new File(inFile)); PrintWriter pw = new PrintWriter(outFile)){
+			while(scr.hasNextLine()) {
+				String line = scr.nextLine();
+				String removeWordChar = line.replaceAll("[A-Z]*[a-z]*", "");
+				Double numOnly=null;
+				
+				if(!removeWordChar.isEmpty()) {
+					numOnly = Double.parseDouble((removeWordChar));
+				}
+				
+				
+				if(numOnly != null) {
+					System.out.println(numOnly);
+					Integer roundedNum = (int)Math.round(numOnly);
+					numbers.add(roundedNum);
+					
+				}
+				
+			}
+			sortNumbers(numbers);
+			for(Integer num: numbers) {
+				pw.println(num);
+			}
+			//pw.println(numbers.toString());
+			
+		}catch(FileNotFoundException e) {
+			System.out.println("Error on: " + outFile);
+		}
 		
 		System.out.println("sortNumbers finished");
 
@@ -141,10 +174,11 @@ public class FileIO {
 	/**
 	 * Sort list from smallest to largest numbers.
 	 * @param list
+	 * @return 
 	 */
 	public static void sortNumbers(List<Integer> list) {
 		
-		//TODO
+		Collections.sort(list);
 		
 	}
 
