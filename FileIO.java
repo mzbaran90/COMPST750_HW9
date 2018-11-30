@@ -2,6 +2,7 @@ import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 public class FileIO {
@@ -96,7 +98,7 @@ public class FileIO {
 			for(Integer num: numbers) {
 				pw.println(num);
 			}
-			//pw.println(numbers.toString());
+			
 			
 		}catch(FileNotFoundException e) {
 			System.out.println("Error on: " + outFile);
@@ -120,7 +122,39 @@ public class FileIO {
 	public static void wordCount(String inFile, String outFile) {
 		System.out.println("wordCount opening files " + inFile + ", " + outFile);
 		
-		//TODO
+		HashMap<String, Integer> wordToCount = new HashMap<>();
+		List<String> wordsList = new ArrayList<>();
+		int wordCounter = 0;
+		
+		try(Scanner scr = new Scanner(new File(inFile)); PrintWriter pw = new PrintWriter(outFile)){
+			while(scr.hasNextLine()) {
+				String [] lineSplit = scr.nextLine().toLowerCase().split(" ");
+				Integer tempValue = 1;
+				
+				for(String word: lineSplit) {
+					wordCounter++;
+					word = word.replace('.', ' ');
+					if(wordToCount.containsKey(word)) {
+						tempValue = wordToCount.get(word) + 1;
+						
+					}
+					
+					wordToCount.put(word.trim(), tempValue);
+				}
+				
+			}
+			wordsList.addAll(wordToCount.keySet());
+			sortWords(wordsList);
+			for(String word: wordsList) {
+				pw.println(String.format("%s: %s", word, wordToCount.get(word)));
+			}
+			
+			pw.println();
+			pw.println(String.format("Total words: %s",wordCounter));
+			
+		}catch(FileNotFoundException e) {
+			System.out.print("error on: " + outFile);
+		}
 		
 		System.out.println("wordCount finished");
 	}
@@ -189,6 +223,7 @@ public class FileIO {
 	public static void sortWords(List<String> list) {
 		
 		//TODO
+		Collections.sort(list);
 		
 	}
 
