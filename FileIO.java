@@ -80,6 +80,7 @@ public class FileIO {
 				String removeWordChar = line.replaceAll("[A-Z]*[a-z]*", "");
 				Double numOnly=null;
 				
+				
 				if(!removeWordChar.isEmpty()) {
 					numOnly = Double.parseDouble((removeWordChar));
 				}
@@ -87,8 +88,9 @@ public class FileIO {
 				
 				if(numOnly != null) {
 					System.out.println(numOnly);
-					Integer roundedNum = (int)Math.round(numOnly);
-					numbers.add(roundedNum);
+					Integer roundedNum = (int)Math.round(numOnly); // numbers are with floating decimal are rounded
+					
+					numbers.add(roundedNum); 
 					
 				}
 				
@@ -214,6 +216,7 @@ public class FileIO {
 				inFile2Contents.add(line2);
 			}
 			union.addAll(inFile1Contents);
+			
 			for(String tidbit: inFile2Contents) {
 				if(!union.contains(tidbit)) {
 					union.add(tidbit);
